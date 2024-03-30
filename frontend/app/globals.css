@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.ant-modal-content{
+    @apply !p-3 !px-0 !pt-0 !rounded-md
+}

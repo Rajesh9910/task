@@ -1,17 +1,37 @@
-import { ConfigProvider, Modal } from 'antd'
+import { ConfigProvider, DatePicker, Modal, Select } from 'antd'
+import dayjs from 'dayjs';
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { FaPlus } from 'react-icons/fa';
+import { MdOutlineCancel } from "react-icons/md";
 
 const NoTask = ({ user }) => {
 
     const [open, setOpen] = useState(false);
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, control } = useForm()
 
 
     const showModal = () => {
         setOpen(true);
     };
+
+
+    const options = [
+        {
+            value: 'personal',
+            label: 'Personal',
+        },
+        {
+            value: 'project',
+            label: 'Project',
+        }
+    ]
+
+    const submitHandler = (data) => {
+        data = { ...data, start: dayjs(data.start).format("DD/MM/YYYY"), end: dayjs(data.end).format("DD/MM/YYYY") }
+        console.log(data)
+    }
+
 
     return (
         <>
@@ -20,9 +40,10 @@ const NoTask = ({ user }) => {
                     components: {
                         Modal: {
                             titleColor: "#070F2B",
-                            titleFontSize: "22px"
+                            titleFontSize: "22px",
+                            padding: 0
                         },
-                    },
+                    }
                 }}
             >
 
@@ -33,13 +54,66 @@ const NoTask = ({ user }) => {
                     footer={null}
                     width={820}
                 >
-                    <p></p>
-                    <form className=''>
-                        <div className='w-full flex flex-col'>
-                            <label htmlFor="title">Title</label>
-                            <input type="text" {...register("title")} id="title" />
+                    <div className='w-full'>
+                        <div className=' border-t-[6px] border-primary rounded-t-md w-full text-xl justify-between bg-third/20 flex items-center pb-[2px] px-5 text-primary font-semibold h-14'>
+                            Create New task
+                            <MdOutlineCancel className='text-2xl cursor-pointer' onClick={() => setOpen(false)} />
                         </div>
-                    </form>
+                        <form className='p-4 flex-col flex gap-2' onSubmit={handleSubmit(submitHandler)}>
+                            <div className='w-full flex flex-col gap-1'>
+                                <label htmlFor="title" className='text-[18px] font-medium'>Title</label>
+                                <input type="text" {...register("title")} id="title" className='outline-none h-10 border px-3 border-slate-400 rounded-md text-[17px]' placeholder='Enter title here' />
+                            </div>
+                            <div className='w-full flex flex-col gap-1'>
+                                <label htmlFor="description" className='text-[18px] font-medium'>Description</label>
+                                <textarea {...register("description")} id="description" cols="30" rows="3" className='w-full outline-none text-[17px] border border-slate-400 rounded-md px-3 py-2' placeholder='Description of your task '></textarea>
+                            </div>
+                            <div className='grid w-full grid-cols-3 gap-3'>
+                                <div className='w-full flex flex-col gap-1'>
+                                    <p className='text-[18px] font-medium'>Start Date</p>
+                                    <Controller
+                                        name="start"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DatePicker className='w-full !border !border-slate-400 !h-10'
+                                                {...field}
+                                                dateFormat="DD/MM/YYYY" />
+                                        )}
+                                    />
+                                </div>
+                                <div className='w-full flex flex-col gap-1'>
+                                    <p className='text-[18px] font-medium'>End Date</p>
+
+                                    <Controller
+                                        name="end"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DatePicker className='w-full !border !border-slate-400 !h-10'
+                                                {...field}
+                                                // minDate={new Date()}
+                                                dateFormat="DD/MM/YYYY"
+                                            />
+                                        )}
+                                    />
+                                </div>
+                                <div className='w-full flex flex-col gap-1'>
+                                    <p className='text-[18px] font-medium'>Task Type</p>
+                                    <Controller
+                                        name="type"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Select {...field} options={options} defaultValue={"Personal"} className='w-full !border !border-slate-400 !h-10 !rounded-md !active:border-none !focus:border-none !hover:border-none' />
+                                        )}
+                                    />
+
+                                </div>
+                            </div>
+                            <div className='w-full flex justify-center items-center gap-4 mt-8'>
+                                <button type='button' className='h-9 border w-[7rem] font-medium  text-[16px] rounded-full'>Cancel</button>
+                                <button type='submit' className='h-9 border w-[7rem] bg-primary text-white text-[16px] rounded-full'>Save</button>
+                            </div>
+                        </form>
+                    </div>
                 </Modal>
             </ConfigProvider>
 
