@@ -28,7 +28,7 @@ const Login = ({ setIsLogin, api }) => {
                 </div>
                 <div className='flex flex-col gap-1 w-[82%] lg:w-[75%] mx-auto'>
                     <label htmlFor="password" className='text-[17px] font-medium text-black/80'>Password</label>
-                    <input type="text" {...register("password", { required: true })} id='password' className='h-12 rounded px-3 outline-none' placeholder='Enter Password' autoComplete='off' />
+                    <input type="password" {...register("password", { required: true })} id='password' className='h-12 rounded px-3 outline-none' placeholder='Enter Password' autoComplete='off' />
                 </div>
                 <input type="submit" value={"Login"} className='mb-4 mt-12 py-[6px] text-white rounded text-[18px] font-semibold bg-secondary w-[8rem] mx-auto cursor-pointer' />
             </form>

@@ -33,11 +33,11 @@ const Register = ({ setIsLogin, api }) => {
                 <div className=' w-[82%] lg:w-[75%] mx-auto flex flex-col lg:flex-row gap-3'>
                     <div className='flex flex-col gap-1 w-full lg:w-[calc(50%-6px)]'>
                         <label htmlFor="password" className='text-[17px] font-medium text-black/80'>Password</label>
-                        <input type="text" {...register("password", { required: true })} id='password' className='h-12 rounded px-3 outline-none' placeholder='Enter Password' autoComplete='off' />
+                        <input type="password" {...register("password", { required: true })} id='password' className='h-12 rounded px-3 outline-none' placeholder='Enter Password' autoComplete='off' />
                     </div>
                     <div className='flex flex-col gap-1 w-full lg:w-[calc(50%-6px)]'>
                         <label htmlFor="cpassword" className='text-[17px] font-medium text-black/80'>Confirm Password</label>
-                        <input type="text" {...register("cpassword", { required: true })} id='cpassword' className='h-12 rounded px-3 outline-none' placeholder='Confirm Password' autoComplete='off' />
+                        <input type="password" {...register("cpassword", { required: true })} id='cpassword' className='h-12 rounded px-3 outline-none' placeholder='Confirm Password' autoComplete='off' />
                     </div>
                 </div>
                 <input type="submit" value={"Sign Up"} className='mb-4 mt-8 py-[6px] text-white rounded text-[18px] font-semibold bg-secondary w-[8rem] mx-auto cursor-pointer' />
