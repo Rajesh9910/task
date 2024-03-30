@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require("https")
 const AuthRouter = require('./routes/userRouter');
 require("dotenv").config()
 const dbconnect = require('./config/db');
@@ -16,6 +17,12 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.send('Hello from backend!');
 });
+
+setInterval(() => {
+    http.get('https://task-a4z2.onrender.com', (res) => {
+        console.log('Route called successfully');
+    })
+}, 10 * 60 * 1000);
 
 app.use('/api/v1/', AuthRouter)
 

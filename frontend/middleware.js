@@ -3,7 +3,8 @@ import { clientRoutes } from "./lib/helpers"
 
 export function middleware(request) {
 
-    const local_path = "http://localhost:3000"
+    const origin = request.nextUrl.origin
+    const local_path = origin === "http://localhost:3000" ? "http://localhost:3000" : "https://task-lovat-three.vercel.app"
 
     const url = local_path
 
