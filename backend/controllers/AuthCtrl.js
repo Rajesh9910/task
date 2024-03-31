@@ -49,7 +49,6 @@ const getUserCtrl = async (req, res) => {
         } else {
             const userObj = foundUser.toObject();
             delete userObj.password;
-
             res.status(200).json({ success: true, message: "Registration Success", data: userObj })
         }
 
@@ -58,4 +57,13 @@ const getUserCtrl = async (req, res) => {
     }
 }
 
-module.exports = { LoginCtrl, RegisterCtrl, getUserCtrl }
+const allUsers = async (req, res) => {
+    try {
+        const users = await User.find()
+        res.status(200).json({ success: true, message: "Users fetched successfully", data: users })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = { LoginCtrl, RegisterCtrl, getUserCtrl, allUsers }

@@ -49,6 +49,12 @@ export const getUserAction = async (form) => {
     }
 }
 
+export const allUsersAction = async () => {
+    const res = await fetch(serverRoutes.allUsers)
+    const data = await res.json()
+    return data
+}
+
 export const createTask = async (form) => {
     try {
         const res = await fetch(serverRoutes.newtask, {
@@ -79,4 +85,36 @@ export const updateTask = async (form) => {
     } catch (error) {
         console.log(error)
     }
-} 
+}
+
+export const createMsg = async (form) => {
+    try {
+        const res = await fetch(serverRoutes.createMsg, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form)
+        })
+        const data = await res.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const allChats = async (form) => {
+    try {
+        const res = await fetch(serverRoutes.getMsgs, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form)
+        })
+        const data = await res.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

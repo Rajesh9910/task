@@ -14,3 +14,7 @@
 .scroller::-webkit-scrollbar-thumb{
     @apply  bg-third/50 rounded
 }
+
+.scroll-hidden::-webkit-scrollbar{
+    @apply w-0
+}

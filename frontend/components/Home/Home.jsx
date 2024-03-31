@@ -7,7 +7,7 @@ import Discussions from "./Discussions"
 import Tasks from "./Tasks"
 import { useStore } from "@/store/store"
 
-const Main = ({ user }) => {
+const Main = ({ user, allUsers, messages }) => {
 
     const [toggle, setIsToggle] = useState("dashboard")
     const { state: { tasks }, dispatch } = useStore()
@@ -30,7 +30,7 @@ const Main = ({ user }) => {
                             toggle === "task" && <Tasks user={user} tasks={tasks} />
                         }
                         {
-                            toggle === "discussion" && <Discussions />
+                            toggle === "discussion" && <Discussions allUsers={allUsers.filter(i => i._id !== user._id)} user={user} messages={messages} />
                         }
                     </div>
                 </div>

@@ -6,7 +6,9 @@ const dbconnect = require('./config/db');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 const TaskRouter = require('./routes/taskRouter');
+const { ChatRouter } = require('./routes/chatRouter');
 const app = express();
+const { Server } = require("socket.io")
 
 dbconnect()
 
@@ -27,8 +29,27 @@ setInterval(() => {
 
 app.use('/api/v1/', AuthRouter)
 app.use('/api/v1/', TaskRouter)
+app.use('/api/v1/', ChatRouter)
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log('Server is running on port', PORT);
 });
+
+const io = new Server(server, {
+    cors: {
+        origin: ["http://localhost:3000", "https://task-lovat-three.vercel.app"]
+    }
+})
+
+io.on("connection", (socket) => {
+    console.log("connection found")
+
+    socket.on("add-msg", (userId) => {
+        io.emit("get-msg", userId)
+    })
+
+    socket.on("disconnect", () => {
+        // console.log("user disconnected")
+    })
+})

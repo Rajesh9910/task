@@ -5,10 +5,12 @@ export const serverRoutes = {
     login: basePath + "auth/login",
     register: basePath + "auth/register",
     getUser: basePath + "auth/getuser",
-    updateUser: basePath + "auth/update",
+    allUsers: basePath + "auth/users",
     newtask: basePath + "task/create",
     deleteTask: basePath + "task/delete",
     updateTask: basePath + "task/update",
+    createMsg: basePath + "chat/create",
+    getMsgs: basePath + "chat/get",
 }
 
 export const clientRoutes = {
