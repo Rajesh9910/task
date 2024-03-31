@@ -38,7 +38,7 @@ const DashBoard = ({ user, tasks }) => {
             <div className='basis-1/3 pe-2 '>
                 <div className='h-full bg-white rounded-md shadow'>
                     <div className='flex justify-between items-center px-3 py-2 border-b border-slate-400 font-semibold'>
-                        <p className=' '>My Tasks <span className='font-normal'>({user.tasks.length})</span></p>
+                        <p className=' '>My Tasks <span className='font-normal'>({tasks.length})</span></p>
                         <NewTask user={user} />
                     </div>
                     <div className='w-full h-[18rem] overflow-y-auto scroller' >
