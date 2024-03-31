@@ -17,7 +17,7 @@ const Login = ({ setIsLogin, api }) => {
             setCookie(null, "user", res.data._id)
             toast(api, "success", res.message)
             dispatch({ type: "Update_Tasks", payload: res.data.tasks })
-            navigate.push(clientRoutes.home)
+            navigate.replace(clientRoutes.home)
         } else {
             toast(api, "warning", res.message)
         }
