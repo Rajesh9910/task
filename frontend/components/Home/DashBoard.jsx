@@ -21,7 +21,7 @@ const Icon = ({ status }) => {
 }
 
 const DashBoard = ({ user, tasks }) => {
-    if (!user.tasks.length) {
+    if (!tasks?.length) {
         return (
             <NoTask user={user} />
         )

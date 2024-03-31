@@ -3,7 +3,7 @@ import NoTask from './NoTask'
 import TaskStatusComponent from './TaskContainer'
 
 const Tasks = ({ user, tasks }) => {
-    if (!user.tasks.length) {
+    if (!tasks?.length) {
         return (
             <NoTask user={user} />
         )

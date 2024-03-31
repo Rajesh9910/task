@@ -1,5 +1,6 @@
 import { createTask } from '@/lib/actions';
 import { toast } from '@/lib/helpers';
+import { useStore } from '@/store/store';
 import { ConfigProvider, DatePicker, Modal, Select, notification } from 'antd'
 import dayjs from 'dayjs';
 import React, { useState } from 'react'
@@ -12,6 +13,7 @@ const NoTask = ({ user }) => {
     const [open, setOpen] = useState(false);
     const { register, handleSubmit, control, reset } = useForm()
     const [api, contextHolder] = notification.useNotification()
+    const { dispatch, state: { tasks } } = useStore()
 
     const showModal = () => {
         setOpen(true);
@@ -36,6 +38,7 @@ const NoTask = ({ user }) => {
         if (res.success) {
             setOpen(false);
             toast(api, "success", res.message)
+            dispatch({ type: "Update_Tasks", payload: res.data.tasks })
         }
     }
 

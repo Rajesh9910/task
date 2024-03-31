@@ -1,5 +1,6 @@
 import { loginAction } from '@/lib/actions'
 import { clientRoutes, toast } from '@/lib/helpers'
+import { useStore } from '@/store/store'
 import { useRouter } from 'next/navigation'
 import { setCookie } from 'nookies'
 import React from 'react'
@@ -8,12 +9,14 @@ import { useForm } from 'react-hook-form'
 const Login = ({ setIsLogin, api }) => {
     const { register, handleSubmit } = useForm()
     const navigate = useRouter()
+    const { dispatch, state: { tasks } } = useStore()
 
     const loginHandler = async (data) => {
         const res = await loginAction(data)
         if (res.success) {
             setCookie(null, "user", res.data._id)
             toast(api, "success", res.message)
+            dispatch({ type: "Update_Tasks", payload: res.data.tasks })
             navigate.push(clientRoutes.home)
         } else {
             toast(api, "warning", res.message)
