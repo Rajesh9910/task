@@ -14,6 +14,7 @@ const NoTask = ({ user }) => {
     const { register, handleSubmit, control, reset } = useForm()
     const [api, contextHolder] = notification.useNotification()
     const { dispatch, state: { tasks } } = useStore()
+    const [isLoading, setIsLoading] = useState(false)
 
     const showModal = () => {
         setOpen(true);
@@ -32,6 +33,7 @@ const NoTask = ({ user }) => {
     ]
 
     const submitHandler = async (data) => {
+        setIsLoading(true)
         data = { ...data, startDate: data.startDate.valueOf(), endDate: data.endDate.valueOf(), id: user._id }
         const res = await createTask(data)
         reset()
@@ -39,6 +41,7 @@ const NoTask = ({ user }) => {
             setOpen(false);
             toast(api, "success", res.message)
             dispatch({ type: "Update_Tasks", payload: res.data.tasks })
+            setIsLoading(false)
         }
     }
 
@@ -121,7 +124,7 @@ const NoTask = ({ user }) => {
                             </div>
                             <div className='w-full flex justify-center items-center gap-4 mt-8'>
                                 <button type='button' onClick={() => setOpen(false)} className='h-9 border w-[7rem] font-medium  text-[16px] rounded-full'>Cancel</button>
-                                <button type='submit' className='h-9 border w-[7rem] bg-primary text-white text-[16px] rounded-full'>Save</button>
+                                <button type={isLoading ? "button" : 'submit'} className={`h-9 border w-[7rem] bg-primary text-white text-[16px] rounded-full ${isLoading && "pointer-events-none cursor-auto"}`}>Save</button>
                             </div>
                         </form>
                     </div>
