@@ -1,13 +1,16 @@
 import React from 'react'
 import NoTask from './NoTask'
+import TaskStatusComponent from './TaskContainer'
 
-const Tasks = ({ user }) => {
+const Tasks = ({ user, tasks }) => {
     if (!user.tasks.length) {
         return (
             <NoTask user={user} />
         )
     }
-    return <div>Tasks</div>
+    return <>
+        <TaskStatusComponent task={tasks} user_id={user._id} />
+    </>
 }
 
 export default Tasks

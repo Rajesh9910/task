@@ -8,26 +8,25 @@ const taskSchema = new mongoose.Schema({
         type: String,
     },
     startDate: {
-        type: Date,
+        type: Number,
     },
     endDate: {
-        type: Date,
+        type: Number,
+    },
+    reminderDate: {
+        type: Number,
+        default: null
     },
     status: {
         type: String,
-        enum: ['todo', 'in_progress', 'completed'],
         default: 'todo'
     },
     progress: {
         type: Number,
         required: true,
         default: 0
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { timestamps: false });
 
 const userSchema = new mongoose.Schema({
     username: {

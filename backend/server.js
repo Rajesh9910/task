@@ -4,7 +4,8 @@ const AuthRouter = require('./routes/userRouter');
 require("dotenv").config()
 const dbconnect = require('./config/db');
 const bodyParser = require('body-parser');
-const cors = require("cors")
+const cors = require("cors");
+const TaskRouter = require('./routes/taskRouter');
 const app = express();
 
 dbconnect()
@@ -25,6 +26,7 @@ setInterval(() => {
 }, 10 * 60 * 1000);
 
 app.use('/api/v1/', AuthRouter)
+app.use('/api/v1/', TaskRouter)
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

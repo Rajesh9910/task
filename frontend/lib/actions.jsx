@@ -39,6 +39,39 @@ export const getUserAction = async (form) => {
             headers: {
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify(form),
+            cache: "no-cache"
+        })
+        const data = await res.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const createTask = async (form) => {
+    try {
+        const res = await fetch(serverRoutes.newtask, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form)
+        })
+        const data = await res.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateTask = async (form) => {
+    try {
+        const res = await fetch(serverRoutes.updateTask, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(form)
         })
         const data = await res.json()

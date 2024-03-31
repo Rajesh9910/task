@@ -7,3 +7,10 @@
 .ant-modal-content{
     @apply !p-3 !px-0 !pt-0 !rounded-md
 }
+
+.scroller::-webkit-scrollbar{
+    @apply w-[8px] bg-slate-100
+}
+.scroller::-webkit-scrollbar-thumb{
+    @apply  bg-third/50 rounded
+}

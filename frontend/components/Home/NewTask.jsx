@@ -1,5 +1,6 @@
 import { createTask } from '@/lib/actions';
 import { toast } from '@/lib/helpers';
+import { useStore } from '@/store/store';
 import { ConfigProvider, DatePicker, Modal, Select, notification } from 'antd'
 import dayjs from 'dayjs';
 import React, { useState } from 'react'
@@ -7,11 +8,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { FaPlus } from 'react-icons/fa';
 import { MdOutlineCancel } from "react-icons/md";
 
-const NoTask = ({ user }) => {
+const NewTask = ({ user }) => {
 
     const [open, setOpen] = useState(false);
     const { register, handleSubmit, control, reset } = useForm()
     const [api, contextHolder] = notification.useNotification()
+    const { dispatch, state: { tasks } } = useStore()
 
     const showModal = () => {
         setOpen(true);
@@ -36,6 +38,8 @@ const NoTask = ({ user }) => {
         if (res.success) {
             setOpen(false);
             toast(api, "success", res.message)
+            const obj = res.data.tasks[res.data.tasks.length - 1]
+            dispatch({ type: "Update_Tasks", payload: [...tasks, obj] })
         }
     }
 
@@ -85,7 +89,7 @@ const NoTask = ({ user }) => {
                                         render={({ field }) => (
                                             <DatePicker className='w-full !border !border-slate-400 !h-10'
                                                 {...field}
-                                                dateFormat="YYYY/MM/DD" />
+                                                dateFormat="DD/MM/YYYY" />
                                         )}
                                     />
                                 </div>
@@ -99,7 +103,7 @@ const NoTask = ({ user }) => {
                                             <DatePicker className='w-full !border !border-slate-400 !h-10'
                                                 {...field}
                                                 // minDate={new Date()}
-                                                dateFormat="YYYY/MM/DD"
+                                                dateFormat="DD/MM/YYYY"
                                             />
                                         )}
                                     />
@@ -124,13 +128,13 @@ const NoTask = ({ user }) => {
                     </div>
                 </Modal>
             </ConfigProvider>
-
-            <div className="w-full py-8  flex justify-center text-2xl flex-col items-center gap-4">
-                No Tasks Created
-                <button onClick={showModal} className='bg-secondary h-10 w-10 flex justify-center items-center text-white rounded-full'><FaPlus /></button>
+            <div className="bg-secondary rounded-full p-1">
+                <button onClick={showModal} className='  flex justify-center items-center text-white '>
+                    <FaPlus className='text-[12px]' />
+                </button>
             </div>
         </>
     )
 }
 
-export default NoTask
+export default NewTask

@@ -7,7 +7,7 @@ import { LuLogOut } from "react-icons/lu";
 import { MdSpaceDashboard } from "react-icons/md";
 import { RiChatSmileFill } from "react-icons/ri";
 
-const SideBar = ({ user, setIsToggle, toggle }) => {
+const SideBar = ({ setIsToggle, toggle }) => {
 
     const navigate = useRouter()
 

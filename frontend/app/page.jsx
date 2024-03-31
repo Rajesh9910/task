@@ -10,7 +10,6 @@ export default async function Home() {
   if (!id) redirect(clientRoutes.login)
 
   const user = await getUserAction({ id: id })
-
   return (
     <Main user={user.data} />
   );
