@@ -29,7 +29,7 @@ const Discussions = ({ allUsers, user, messages }) => {
                     const existingIndex = updatedUnreadMsgs.findIndex(item => item.id === obj.sender);
 
                     if (existingIndex !== -1) {
-                        updatedUnreadMsgs[existingIndex].count += 1 / 2;
+                        updatedUnreadMsgs[existingIndex].count += 1;
                     } else {
                         updatedUnreadMsgs.push({ id: obj.sender, count: 1 });
                     }
