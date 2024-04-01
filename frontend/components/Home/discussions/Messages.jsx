@@ -28,7 +28,7 @@ const Msg = ({ message, toUser, user, isFirstMessage, isLastMessage }) => {
 
 const Messages = ({ messages, toUser, user }) => {
   return (
-    <div className='h-[calc(100%-114.8px)] flex flex-col-reverse px-4 py-2'>
+    <div className='h-[calc(100%-114.8px)] flex flex-col-reverse px-4 py-2 overflow-y-auto scroller'>
 
       {
         messages.length ?

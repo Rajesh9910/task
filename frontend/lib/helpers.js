@@ -1,5 +1,7 @@
-const basePath = "https://task-a4z2.onrender.com/api/v1/"
-// const basePath = "http://localhost:8080/api/v1/"
+// const basePath = "https://task-a4z2.onrender.com/api/v1/"
+const basePath = "http://localhost:8080/api/v1/"
+
+export const socketServer = "http://localhost:8080"
 
 export const serverRoutes = {
     login: basePath + "auth/login",

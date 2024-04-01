@@ -45,11 +45,15 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     console.log("connection found")
 
-    socket.on("add-msg", (userId) => {
-        io.emit("get-msg", userId)
+    socket.on("add-msg", (obj) => {
+        io.emit("get-msg", obj)
+    })
+
+    socket.on("typing", (obj) => {
+        io.emit("show-animation", obj)
     })
 
     socket.on("disconnect", () => {
-        // console.log("user disconnected")
+        console.log("user disconnected")
     })
 })

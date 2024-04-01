@@ -1,4 +1,5 @@
 import { createMsg } from '@/lib/actions';
+import { useStore } from '@/store/store';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoSend } from "react-icons/io5";
@@ -6,13 +7,17 @@ import { IoSend } from "react-icons/io5";
 const ChatInput = ({ user, toUser }) => {
 
     const { register, handleSubmit, reset } = useForm()
+    const { socket } = useStore()
     const [isLoading, setIsLoading] = useState(false)
 
     const sendMessageHandler = async ({ message }) => {
         setIsLoading(true)
         if (message) {
-            await createMsg({ sender: user._id, receiver: toUser._id, message: message, type: "regular" })
             reset()
+            const res = await createMsg({ sender: user._id, receiver: toUser._id, message: message, type: "regular" })
+            if (res.success) {
+                socket.emit("add-msg", res.data)
+            }
         }
         setIsLoading(false)
     }
@@ -26,7 +31,9 @@ const ChatInput = ({ user, toUser }) => {
                         <button type='submit' className='absolute top-1/2 -translate-y-1/2 right-3 text-primary text-2xl'>
                             <IoSend />
                         </button> :
-                        <div className='absolute top-1/2 -translate-y-1/2 right-3 text-primary text-2xl'>S</div>
+                        <div className='absolute top-1/2 -translate-y-1/2 right-3 text-primary text-2xl'>
+                            <span className='loader'></span>
+                        </div>
                 }
             </form>
         </div>
